@@ -1,0 +1,141 @@
+.auth__container {
+    background-image: url('/src/assets/bg.jpg');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.search_container {
+    background-image: url('/src/assets/bg2.jpg');
+}
+
+.auth__box {
+    background-color: $color-bg;
+    padding: 10px 50px;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.auth__box.actions__box {
+    max-width: 900px;
+}
+
+.auth__input {
+    margin-bottom: 15px;
+}
+
+.auth__input-password-container {
+    width: 100%; 
+    position: relative;
+}
+
+.auth__input-password-container i {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+        color: $color-shadow;
+    }
+}
+
+.auth__input-password-container.active{}
+
+
+
+.auth__logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.auth__box-title,
+.auth__box-subtitle, 
+.auth__link {
+    color: $color-blue;
+    text-shadow: 1px 1px 1px $color-white;
+}
+
+.verified {
+    text-align: center;
+}
+
+.auth__box-subtitle {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.auth__login-button {
+    text-shadow: none;
+    &:hover {
+        color: #fff;
+    }
+
+    &:active {
+        box-shadow: inset 5px 5px 20px darken($color: $color-shadow, $amount: 30) , inset -1px -1px 2px $color-shadow;
+    }
+}
+
+.auth__social-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    .google {
+        color: #DB4437;
+        background-color: #EFEFEF;
+        box-shadow: none;
+    }
+
+    .facebook {
+        color: #4267B2;
+    }
+
+    .twitter {
+        color: #1DA1F2;
+    }
+}
+
+.auth__social-login button {
+    border-radius: 4px;
+    margin: 0 20px;
+}
+
+.auth__link {
+    text-align: center;
+    display: block;
+    color: darken($color: $color-shadow, $amount: 20);
+    font-weight: bolder;
+    text-shadow: 1px 1px 1px $color-white;
+    margin: 10px 0;
+}
+
+.auth__button-back {
+    margin-bottom: 10px;
+    display: inline-block;
+    background-color: $color-green;
+    color: $color-blue;
+}
+
+.auth__credits {
+    color: $color-white;
+    margin-top: 50px;
+    text-shadow: 1px 1px $color-shadow;
+    font-size: 20px;
+
+    a {
+        color: $color-white;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    .auth__box {
+        padding: 50px 20px;
+    }
+}

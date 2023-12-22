@@ -1,0 +1,176 @@
+.task__header {
+    margin-bottom: 30px;
+
+    & h2 {
+        margin-bottom: 0;
+    }
+}
+
+.task__toggle {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px 0 0 8px;
+    background: darken($color-shadow, 10);
+    color: $color-white;
+    align-items: center;
+}
+
+.task__breadcrumb {
+    margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+.task__breadcrumb span {
+    color: darken($color-shadow, 10);
+    cursor: pointer;
+}
+
+.task__btn {
+    margin-top: 20px;
+    box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
+
+    &:hover {
+        box-shadow: -1px -1px 2px $color-white, 1px 1px 2px $color-shadow;
+    }
+
+    &:active {
+        box-shadow: inset -1px -1px 2px $color-white, inset 1px 1px 2px $color-shadow;
+    }
+}
+
+.task__status {
+    margin-left: 30px;
+    margin-bottom: 0;
+    width: auto;
+    box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
+
+    &:hover {
+        box-shadow: -1px -1px 2px $color-white, 1px 1px 2px $color-shadow;
+    }
+
+    &:active {
+        box-shadow: inset -1px -1px 2px $color-white, inset 1px 1px 2px $color-shadow;
+    }
+
+    &.completed {
+        box-shadow: inset -1px -1px 2px $color-white, inset 1px 1px 2px $color-shadow;
+    }
+}
+
+.tox-tinymce {
+    box-shadow: -5px -5px 20px $color-white, 5px 5px 20px $color-shadow !important;
+}
+
+.task__deadLine-container {
+    display: flex;
+}
+
+.task__deadLine {
+    margin-left: 30px;
+    display: flex;
+}
+
+.react-datepicker__tab-loop {
+    z-index: 10000;
+}
+
+.deadLine__data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    position: relative;
+}
+
+.deadLine__data p {
+    margin-left: 20px;
+}
+
+.deadLine__data:hover i {
+    opacity: 1;
+}
+
+.deadLine__data i.fa-pencil {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+}
+
+.deadLine__data-main * {
+    display: inline;
+}
+
+.task__deadLine-delete {
+    opacity: 0;
+    margin-left: 30px;
+    margin-bottom: 0;
+    display: inline;
+    padding:  5px 10px;
+    width: auto;
+}
+
+.deadLine__data-main:hover .task__deadLine-delete {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 1180px) {
+    .tasks__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .task__header {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start;
+
+        & h2 {
+            margin-bottom: 15px;
+        }
+    }
+
+    .task__status {
+        margin-left: 0;
+        padding: 5px 10px;
+    }
+
+    .deadLine__data {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .deadLine__data, .deadLine__data-main  {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .deadLine__data p {
+        margin-left: 0;
+    }
+
+    .task__deadLine-delete {
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .tasks__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .task__header h2 {
+        font-size: 26px;
+    }
+}
+
+@media only screen and (max-width: 624px) {
+    .tasks__container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.task__complete {
+    cursor: pointer;
+}

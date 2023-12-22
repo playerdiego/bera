@@ -1,0 +1,236 @@
+.project__header {
+    display: flex;
+    align-items: center;
+}
+
+.client-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-name small {
+    font-size: 14px;
+}
+
+.project__header h1 {
+    grid-area: title;
+    margin: 0;
+}
+
+.project__header-data {
+    display: flex;
+    align-items: center;
+}
+
+.project__back {
+    grid-area: back;
+    display: inline-block;
+    width: auto;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.project__status {
+    grid-area: status;
+}
+
+.project__budget,.project__budget-form input {
+    grid-area: budget;
+    background: $color-green;
+    color: $color-white;
+    padding: 5px 20px;
+    margin-left: 30px;
+    font-weight: bolder;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px darken($color: $color-green, $amount: 20), inset -5px -5px 10px darken($color: $color-green, $amount: 10);
+    position: relative;
+}
+
+.project__budget.yellow {
+    background:$color-green;
+    box-shadow: inset 2px 2px 5px darken($color: $color-green, $amount: 20), inset -5px -5px 10px darken($color: $color-green, $amount: 10);
+    
+    color: #000;
+}
+.project__budget.red {
+    background:$color-red;
+    box-shadow: inset 2px 2px 5px darken($color: $color-red, $amount: 20), inset -5px -5px 10px darken($color: $color-red, $amount: 10);
+    color: #000;
+}
+
+.project__budget-form {
+    grid-area: budget;
+}
+
+.project__percentage {
+    grid-area: percentage;
+    margin-left: 20px;
+    box-shadow: 2px 2px 5px $color-shadow, -5px -5px 10px $color-white;
+    padding: 5px 20px;
+    border: 0px;
+    border-radius: 10px;
+    background: transparent;
+    font-weight: bolder;
+}
+
+.project__percentage option {
+    box-shadow: 2px 2px 5px $color-shadow, -5px -5px 10px $color-white;
+}
+
+.project__edit {
+    font-size: 16px;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+    transition: .3s;
+}
+
+.project__budget .project__edit {
+    top: -20px;
+    right: -10px;
+    color: $color-shadow;
+}
+
+.project__header h1:hover .project__edit, .project__header .project__budget:hover .project__edit  {
+    opacity: 1;
+}
+
+.project__title-form {
+    grid-area: title;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    grid-gap: 10px;
+
+    & input, & button {
+        border-radius: 5px;
+        margin-bottom: 0;
+    }
+}
+
+
+.project__budget-form {
+    max-width: 180px;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.project__budget-form input {
+    margin-left: 0;
+    max-width: 120px;
+    position: relative;
+    text-shadow: none;
+    margin: 0;
+}
+
+.project__budget-form button {
+    height: 35px;
+    width: 35px;
+    display: flex;
+}
+
+.project__main {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.project__header-description {
+    margin-top: 30px;
+}
+
+.project__header-description p {
+    display: inline;
+    margin-right: 20px;
+    font-weight: bolder;
+}
+
+.project__tasks-completed {
+    margin-top: 50px;
+}
+
+.project__header-passwords {
+    grid-area: passwords;
+    display: flex;
+    align-items: center;
+}
+
+.project__header-passwords * {
+    display: inline-block;
+    width: auto;
+}
+
+.project__header-passwords input {
+    margin: 0 !important;
+    margin-right: 10px !important;
+    appearance: auto;
+}
+
+.project-boxes__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px 20px;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 1250px) {
+    .project__header {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 956px) {
+    .project__header {
+        display: grid;
+        grid-template-areas: "back back back back back"
+        "title title title title title"
+        "budget budget budget percentage percentage"
+        "status status passwords passwords passwords";
+        margin-top: 50px;
+    }
+
+    .project__header-passwords {
+        margin-top: 20px;
+    }
+    
+    .project__back {
+        margin-right: 10px;
+        padding: 5px;
+    
+        & i {
+            font-size: 16px;
+        }
+    }
+
+    .project__budget, .project__budget-form input {
+        margin-left: 0;
+    }
+
+    .project__header-description {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project__header-description p {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .project__header h1, .project__title-form {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .project-boxes__container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 20px 20px;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .project__header h1 {
+        font-size: 32px;
+    }
+
+}

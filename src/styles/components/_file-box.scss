@@ -1,0 +1,136 @@
+// Project Boxes
+
+.files-boxes__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px 20px;
+    margin-bottom: 20px;
+}
+
+.files__box-icon {
+    margin-bottom: 10px;
+}
+
+.files_box-email {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.files__box-icon i {
+    color: $color-green;
+    font-size: 60px;
+}
+
+.project__box-container {
+    text-align: center;
+    position: relative;
+}
+
+.project__box-container i.fa-times {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    color: $color-red;
+    opacity: 0;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.project__box-container:hover i.fa-times{
+    opacity: 1;
+}
+
+.project__box p {
+    font-weight: bolder;
+}
+
+.project__box.closed {
+    opacity: 0.4;
+    box-shadow: -1px -1px 5px $color-white, 1px 2px 3px $color-shadow;
+}
+
+.project__box.closed p {
+    color:rgb(33, 37, 41);
+}
+
+
+.projects__btn-container {
+    width: 100%;
+    text-align: right;
+}
+
+.projects__btn {
+    width: auto;
+    box-shadow: -5px -5px 10px $color-white, 5px 5px 10px $color-shadow;
+}
+
+.projects__btn i {
+    font-size: 16px;
+}
+
+.project__type {
+    color: darken($color-shadow, 15);
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+.project__add-form {
+    padding: 15px;
+    &:hover, &:active {
+        box-shadow: -5px -5px 10px #FFF, 5px 5px 10px #a2a5b1;
+    }
+}
+
+.project__add-form input {
+    margin-bottom: 20px;
+}
+
+.project__add-form button {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #a2a5b1;
+}
+
+.project__add-form .project__percentage {
+    margin-left: 0;
+    width: 100%;
+    box-shadow: inset 2px 2px 5px #a2a5b1, inset -5px -5px 10px #FFF;
+    border-radius: 5px;
+    padding: 16px;
+    font-weight: normal;
+}
+
+.project__box .fa-key {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+}
+
+
+
+
+@media only screen and (max-width: 1500px) {
+    .files-boxes__container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 0 20px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .files-boxes__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 756px) {
+    .files-boxes__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .files-boxes__container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

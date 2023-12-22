@@ -1,0 +1,17 @@
+.footer__container {
+    display: flex;
+    justify-content: space-around;
+    background: darken($color: $color-white, $amount: 20);
+    padding: 20px;
+    width: 100%;
+    box-shadow: inset 5px 5px 10px $color-shadow, inset -5px -5px 10px $color-white;
+}
+
+@media only screen and (max-width: 956px) {
+    .footer__container {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+}

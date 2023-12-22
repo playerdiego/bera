@@ -1,0 +1,65 @@
+.main__container {
+    padding-left: 80px;
+    padding-right: 30px;
+    padding-top: 60px;
+    transition: .5s;
+    min-height: 94vh;
+    position: relative;
+}
+
+.main__container.open {
+    padding-left: 260px;
+}
+
+.main__title {
+    font-size: 60px;
+    margin-bottom: 30px;
+    color: $color-blue;
+}
+
+.main__subtitle {
+    margin-bottom: 40px;
+    color: $color-blue;
+}
+
+.delete {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    color: $color-red;
+    cursor: pointer;
+    background: $color-red;
+    color: #FFF;
+    padding: 5px 20px;
+    font-weight: bolder;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px darken($color-red, 20), inset -5px -5px 10px darken($color-red, 20);
+}
+
+.add {
+    position: static;
+    display: inline-block;
+    background-color: $color-success;
+    box-shadow: inset 2px 2px 5px darken($color-success, 20), inset -5px -5px 10px darken($color-success, 20);
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 956px) {
+    .main__container {
+        padding-left: 30px;
+    }
+    
+    .main__container.open {
+        padding-left: 260px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .main__title {
+        font-size: 40px;
+    }
+
+    .main__container.open {
+        opacity: 0;
+    }
+}
