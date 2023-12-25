@@ -10,6 +10,8 @@ import { getAuth } from 'firebase/auth';
 import { getProjectById } from '../../helpers/getProjectById';
 import { swalConfirm } from '../../helpers/swalConfirm';
 import { startAddRemuneration } from '../../actions/projectsActions';
+import Swal from 'sweetalert2'
+
 
 export const DashboardScreen = () => {
 
@@ -48,10 +50,42 @@ export const DashboardScreen = () => {
     }, [dispatch]);
 
     const addRemuneration = () => {
-        swalConfirm(`¿Quieres añadir una remuneración de 20$ a ${project.nombre}?` , 'Se ha añadido la remuneración de 20$', () => {
-            dispatch(startAddRemuneration(project.id, project));
-            navigate('/', {replace: true});
-        });
+
+        let usernameInput;
+        let passwordInput;
+
+        Swal.fire({
+            title: `Añadir remuneración de 20$ a ${project.nombre}`,
+            html: `
+              <input type="text" id="username" class="swal2-input" placeholder="Username">
+              <input type="password" id="password" class="swal2-input" placeholder="Password">
+            `,
+            confirmButtonText: 'Añadir',
+            cancelButtonText: "Cancelar",
+            focusConfirm: false,
+            didOpen: () => {
+              const popup = Swal.getPopup();
+              usernameInput = popup.querySelector('#username');
+              passwordInput = popup.querySelector('#password');
+              usernameInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
+              passwordInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
+            },
+            preConfirm: () => {
+              const username = usernameInput.value
+              const password = passwordInput.value
+              if (!username || !password) {
+                Swal.showValidationMessage(`Please enter username and password`)
+              }
+              return { username, password }
+            },
+          }).then((result) => {
+            if (result.isConfirmed) {
+    
+                dispatch(startAddRemuneration(project.id, project));
+                navigate('/', {replace: true});
+    
+            }
+        })
     }
     
     useEffect(() => {

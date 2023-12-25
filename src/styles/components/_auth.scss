@@ -1,6 +1,7 @@
 .auth__container {
     background-image: url('/src/assets/bg.jpg');
     background-size: cover;
+    background-position: center center;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -10,6 +11,7 @@
 
 .search_container {
     background-image: url('/src/assets/bg2.jpg');
+    background-position: center center;
 }
 
 .auth__box {

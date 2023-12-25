@@ -34,6 +34,7 @@ export const AddProjectForm = ({setAddProject}) => {
         if(checkForm()) {
             const formulario = {
                 nombre, email, telefono, direccion, cedula, pago,
+                historial: [],
                 remuneracion: 0,
                 date: new Date()
             };

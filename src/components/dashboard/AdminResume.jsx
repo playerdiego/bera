@@ -1,6 +1,4 @@
 import { useSelector } from 'react-redux';
-import { ClientsBox } from '../clients/ClientsBox';
-import { Link } from 'react-router-dom';
 import { AddProjectBox } from '../projects/AddProjectBox';
 import { ProjectBox } from '../projects/ProjectBox';
 

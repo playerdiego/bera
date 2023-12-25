@@ -10,7 +10,7 @@ export const startLoadProjects = (uid) => {
     return async (dispatch) => {
         
         dispatch(startLoading());
-        const projectsSnap = await getDocs(query(collection(db, uid, 'data', 'forms'), orderBy('date', 'desc')));
+        const projectsSnap = await getDocs(query(collection(db, 'clients'), orderBy('date', 'desc')));
         const projects = [];
         
         projectsSnap.docs.forEach(snap => {
@@ -29,8 +29,8 @@ export const startLoadProjects = (uid) => {
 export const startAddProject = (project) => {
     return (dispatch) => {
         const auth = getAuth();
-        swalLoading('Se esta añadiendo el formulario', 'Por favor, espere');
-        addDoc(collection(db, auth.currentUser.uid, 'data', 'forms'), project)
+        swalLoading('Se esta añadiendo el cliente', 'Por favor, espere');
+        addDoc(collection(db, 'clients'), project)
             .then(projectRef => {
                 Swal.close();
                 Swal.fire(`Se ha Agregado el cliente`, '', 'success');
@@ -46,22 +46,36 @@ export const startAddProject = (project) => {
 export const startUpdateProject = (projectID, project) => {
     return (dispatch) => {
         const auth = getAuth();
-        swalLoading('Se esta actualizando la información del formulario', 'Por favor, espere');
-        updateDoc(doc(db, auth.currentUser.uid, 'data', 'forms', projectID), project)
+        swalLoading('Se esta actualizando la información del cliente', 'Por favor, espere');
+        updateDoc(doc(db, 'clients', projectID), project)
             .then(() => {
                 Swal.close();
                 dispatch(updateProject(projectID, project));
             })
-            .catch(err => Swal.fire('Error', err.message, 'error'))
+            .catch(err => Swal.fire('Error', err.message, 'error'));
     }
 }
 
-export const startAddRemuneration = (clientId, cliente) => {
+export const startAddRemuneration = (clientId, cliente, compra) => {
     return (dispatch) => {
-        const updatedClient = {...cliente, remuneracion: cliente.remuneracion+20};
+        const updatedClient = {...cliente, remuneracion: cliente.remuneracion+20, historial: [...cliente.historial, compra]};
         const auth = getAuth();
         swalLoading('Se esta actualizando la información del cliente', 'Por favor, espere');
-        updateDoc(doc(db, auth.currentUser.uid, 'data', 'forms', clientId), updatedClient)
+        updateDoc(doc(db, 'clients', clientId), updatedClient)
+            .then(() => {
+                Swal.close();
+                dispatch(updateProject(clientId, updatedClient));
+            })
+            .catch(err => Swal.fire('Error', err.message, 'error'));
+    }
+}
+
+export const startPayRemuneration = (clientId, cliente) => {
+    return (dispatch) => {
+        const updatedClient = {...cliente, remuneracion: 0};
+        const auth = getAuth();
+        swalLoading('Se esta actualizando la información del cliente', 'Por favor, espere');
+        updateDoc(doc(db, 'clients', clientId), updatedClient)
             .then(() => {
                 Swal.close();
                 dispatch(updateProject(clientId, updatedClient));
@@ -73,27 +87,27 @@ export const startAddRemuneration = (clientId, cliente) => {
 export const startDeleteProject = (projectID) => {
     return async (dispatch) => {
         const auth = getAuth();
-        swalLoading('Se esta eliminando el formulario', 'Por favor, espere');
+        swalLoading('Se esta eliminando el cliente', 'Por favor, espere');
 
-        const tasksSnap = await getDocs(collection(db, auth.currentUser.uid, 'data', 'forms', projectID, 'tasks'));
+        const tasksSnap = await getDocs(collection(db, 'clients', projectID, 'tasks'));
 
         tasksSnap.docs.forEach(snap => {
-            deleteDoc(doc(db, auth.currentUser.uid, 'data', 'forms', projectID, 'tasks', snap.id))
+            deleteDoc(doc(db, 'clients', projectID, 'tasks', snap.id))
                 .catch(err => Swal.fire('Error', err.message, 'error'));
         });
         
-        const passwordsSnap = await getDocs(collection(db, auth.currentUser.uid, 'data', 'forms', projectID, 'passwords'));
+        const passwordsSnap = await getDocs(collection(db, 'clients', projectID, 'passwords'));
 
         passwordsSnap.docs.forEach(snap => {
-            deleteDoc(doc(db, auth.currentUser.uid, 'data', 'forms', projectID, 'passwords', snap.id))
+            deleteDoc(doc(db, 'clients', projectID, 'passwords', snap.id))
                 .catch(err => Swal.fire('Error', err.message, 'error'));
         });
         
 
-        deleteDoc(doc(db, auth.currentUser.uid, 'data', 'forms', projectID))
+        deleteDoc(doc(db, 'clients', projectID))
             .then(() => {
                 dispatch(deleteProject(projectID));
-                Swal.fire('Se ha eliminado el formulario', '', 'success');
+                Swal.fire('Se ha eliminado el cliente', '', 'success');
             })
             .catch(err => {
                 Swal.fire('Error', err.message, 'error');
