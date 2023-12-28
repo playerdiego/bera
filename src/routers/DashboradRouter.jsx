@@ -34,7 +34,6 @@ export const DashboradRouter = () => {
                     }
                     <Route path='/formularios' element={<ProjectsScreen/>}  />
                     <Route end path='/cliente/:projectID' element={<Project/>} />
-                    <Route path='/files' element={<FilesScreen/>}  />
                     <Route path='/account' element={<AccountScreen/>}  />
                     <Route end path='/' element={<DashboardScreen/>}  />
                     <Route path='/:clientID' element={<DashboardScreen/>}  />

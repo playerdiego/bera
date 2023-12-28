@@ -14,8 +14,6 @@ export const AuthRouter = () => {
                 <Route path='/login' element={<LoginScreen/>} />
                 <Route path='/register' element={<RegisterScreen/>} />
                 <Route path='/recover' element={<RecoverScreen/>} />
-                <Route path='/busqueda' element={<SearchScreen/>} />
-
             </Routes>
     )
 }

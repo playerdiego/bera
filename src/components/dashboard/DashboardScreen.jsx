@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeSidebar } from '../../actions/uiActions';
 import { scrolltoTop } from '../../helpers/scrollToTop';
 import { AdminResume } from './AdminResume';
-import { ClientBoxes } from './ClientBoxes';
-import { ClientResume } from './ClientResume';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getProjectById } from '../../helpers/getProjectById';
-import { swalConfirm } from '../../helpers/swalConfirm';
 import { startAddRemuneration } from '../../actions/projectsActions';
 import Swal from 'sweetalert2'
+import { Search } from './Search';
 
 
 export const DashboardScreen = () => {
@@ -101,6 +99,8 @@ export const DashboardScreen = () => {
 
     return (
         <>
+            <h2 className='shadow-text main__subtitle'>Clientes</h2>
+            <Search />
             <AdminResume />  
         </>
     )

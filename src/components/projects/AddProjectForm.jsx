@@ -1,21 +1,21 @@
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { startAddProject } from '../../actions/projectsActions';
+import { startAddProject, startUpdateProject } from '../../actions/projectsActions';
 import { useForm } from '../../hooks/useForm'
 
-export const AddProjectForm = ({setAddProject}) => {
+export const AddProjectForm = ({setAddProject, initNombre = '', initEmail = '', initTelefono = '', initDireccion = '', initCedula = '', initPago = '', edit = false, historial = [], pagos = [], remuneracion, id}) => {
 
     const dispatch = useDispatch();
 
     const [{
         nombre, email, telefono, direccion, cedula, pago
     }, handleInputChange, reset] = useForm({
-        nombre: '',
-        email: '',
-        telefono: '',
-        direccion: '',
-        cedula: '',
-        pago: ''
+        nombre: initNombre,
+        email: initEmail,
+        telefono: initTelefono,
+        direccion: initDireccion,
+        cedula: initCedula,
+        pago: initPago
     });
 
     const toggleCheck = (e, value) => {
@@ -34,14 +34,20 @@ export const AddProjectForm = ({setAddProject}) => {
         if(checkForm()) {
             const formulario = {
                 nombre, email, telefono, direccion, cedula, pago,
-                historial: [],
-                remuneracion: 0,
+                historial,
+                pagos,
+                remuneracion: remuneracion || 0,
                 date: new Date()
             };
 
-            console.log(formulario);
+            if(edit) {
+                dispatch(startUpdateProject(id, formulario));
+            } else {
+                dispatch(startAddProject(formulario));
+            }
 
-            dispatch(startAddProject(formulario))
+            setAddProject(false);
+
             reset();
         }
           
@@ -114,7 +120,7 @@ export const AddProjectForm = ({setAddProject}) => {
                         type='submit'
                         >
 
-                        Añadir <i className='fas fa-plus'></i>
+                        {edit ? 'Editar' : 'Añadir'} <i className='fas fa-plus'></i>
                         
                     </button>
                     <button

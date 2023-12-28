@@ -3,7 +3,7 @@ import { startLoading, stopLoading } from "./uiActions";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 
-const _baseUrlRealTime = 'https://bera-ref-default-rtdb.firebaseio.com/';
+const _baseUrlRealTime = 'https://bera-fadiku-ref-default-rtdb.firebaseio.com/';
 
 export const startLoadClients = (uid) => {
     return async (dispatch) => {

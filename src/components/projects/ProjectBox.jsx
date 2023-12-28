@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { createRoot } from 'react-dom/client';
+import { AddProjectForm } from './AddProjectForm'
 
 export const ProjectBox = ({
     nombre, 
@@ -21,6 +22,7 @@ export const ProjectBox = ({
     date,
     remuneracion,
     historial,
+    pagos,
     id
 }) => {
 
@@ -34,6 +36,8 @@ export const ProjectBox = ({
         });
     }
 
+    const [showEdit, setShowEdit] = useState(false);
+
     const onOpenHistory = () => {
         let output = historial.map((compra, i) => (
             `
@@ -44,7 +48,7 @@ export const ProjectBox = ({
                 <td>${compra.moto}</td>
                 <td>${compra.monto}</td>
                 <td>${compra.remuneracion}</td>
-                <td>${compra.fecha.toLocaleString()}</td>
+                <td>${compra.fecha.toDate ? compra.fecha.toDate().toLocaleString('es-VE') : compra.fecha.toLocaleString("es-VE")}</td>
               </tr>
             `
         )) ;
@@ -65,7 +69,41 @@ export const ProjectBox = ({
                     </tr>
                     </thead>
                     <tbody>
-                    ${output.join()}
+                        ${output.join('')}
+                    </tbody>
+                </table>`,
+            customClass: 'swal-wide',
+            confirmButtonText: "Cerrar",
+            confirmButtonColor: '#35b6b3'
+        });
+
+    }
+
+    const onOpenPayments = () => {
+        let output = pagos.map((pagoItem, i) => (
+            `
+              <tr>
+                <th scope="row">${i+1}</th>
+                <td>${pagoItem.pagado}$</td>
+                <td>${pagoItem.fecha.toDate ? pagoItem.fecha.toDate().toLocaleString('es-VE') : pagoItem.fecha.toLocaleString("es-VE")}</td>
+              </tr>
+            `
+        )) ;
+
+        Swal.fire({
+            title: `<h3>Historial de pagos a ${nombre}</h3>`, 
+            html: `
+                <h4>Cédula: ${cedula}</h4>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Monto en $USD</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        ${output.join('')}
                     </tbody>
                 </table>`,
             customClass: 'swal-wide',
@@ -148,8 +186,22 @@ export const ProjectBox = ({
 
     const onPayRemuneration = () => {
         swalConfirm(`¿Seguro que quieres marcar la remuneración de ${nombre} como pagada?`, 'Se ha marcado la remuneración como pagada', () => {
-            dispatch(startPayRemuneration(id));
+            dispatch(startPayRemuneration(id, {nombre, 
+                email, 
+                telefono, 
+                direccion, 
+                cedula, 
+                pago,
+                date,
+                remuneracion,
+                historial,
+                pagos,
+                id}));
         });
+    }
+
+    const handleEdit = () => {
+        setShowEdit(true);
     }
 
     const navigate = useNavigate();
@@ -157,30 +209,52 @@ export const ProjectBox = ({
 
     return (
         <div className="project__box-container">
-            <span className={closed ? 'dashboard__box project__box closed' : 'dashboard__box project__box'}>
-                <div className="dashboard__box-main">
-                    <h3>
-                        {
-                            nombre.length > 20
-                            ? nombre.slice(0, 20) + '...'
-                            : nombre
-                        }
-                    </h3>
-                    <p className='color-green'>Cédula: {cedula}</p>
-                    <p className='color-green'>Remuneración: ${remuneracion}</p>
-                </div>
-                <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => navigate('/cliente/'+id)}>
-                    Añadir remuneración <i className="fas fa-plus"></i>
+            {
+                showEdit ?
+                <AddProjectForm 
+                    setAddProject={setShowEdit} 
+                    initNombre={nombre} 
+                    initCedula={cedula} 
+                    initDireccion={direccion} 
+                    initEmail={email}
+                    initTelefono={telefono} 
+                    id={id}
+                    historial={historial}
+                    remuneracion={remuneracion}
+                    edit
+                    pagos={pagos}
+                    initPago={pago}  /> :
+                <>
+                <span className={closed ? 'dashboard__box project__box closed' : 'dashboard__box project__box'}>
+                    <div className="dashboard__box-main">
+                        <h3>
+                            {
+                                nombre.length > 20
+                                ? nombre.slice(0, 20) + '...'
+                                : nombre
+                            }
+                        </h3>
+                        <p className='color-green'>Cédula: {cedula}</p>
+                        <p className='color-green'>Remuneración: ${remuneracion}</p>
+                    </div>
+                    <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => navigate('/cliente/'+id)}>
+                        Añadir remuneración <i className="fas fa-plus"></i>
+                    </span>
+                    <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => onPayRemuneration()}>
+                        Pagar remuneración <i className="fas fa-money-check-alt"></i>
+                    </span>
+                    <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => onOpenHistory()}>
+                        Ver historial de referidos <i className="fas fa-history"></i>
+                    </span>
+                    <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => onOpenPayments()}>
+                        Ver historial de pagos <i className="fas fa-table"></i>
+                    </span>
+                    <span className="dashboard__box-footer" onClick={() => onOpenData()}>Ver datos del cliente <i className="fas fa-arrow-circle-right"></i></span>
                 </span>
-                <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => onPayRemuneration()}>
-                    Pagar remuneración <i className="fas fa-money-check-alt"></i>
-                </span>
-                <span className="dashboard__box-footer dashboard__box-footer-top" onClick={() => onOpenHistory()}>
-                    Ver historial de referidos <i className="fas fa-history"></i>
-                </span>
-                <span className="dashboard__box-footer" onClick={() => onOpenData()}>Ver datos del cliente <i className="fas fa-arrow-circle-right"></i></span>
-            </span>
-            <i className="fas fa-times" onClick={handleDeleteProject}></i>
+                <i className="fas fa-times" onClick={handleDeleteProject}></i>
+                </>
+            }
+            <i className="fas fa-pencil" onClick={() => handleEdit()}></i>
         </div>
     )
 }

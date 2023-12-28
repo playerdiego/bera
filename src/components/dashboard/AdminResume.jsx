@@ -10,7 +10,6 @@ export const AdminResume = () => {
 
   return (
     <>
-    <h2 className='shadow-text main__subtitle'>Clientes</h2>
     <div className="project__main">
     
         <h3>Todos los clientes</h3>

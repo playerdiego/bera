@@ -30,7 +30,7 @@
     position: relative;
 }
 
-.project__box-container i.fa-times {
+.project__box-container i.fa-times, .project__box-container i.fa-pencil {
     position: absolute;
     top: -20px;
     right: 0;
@@ -40,7 +40,12 @@
     cursor: pointer;
 }
 
-.project__box-container:hover i.fa-times{
+.project__box-container i.fa-pencil {
+    right: 20px;
+    color: #cdcdcd
+}
+
+.project__box-container:hover i.fa-times, .project__box-container:hover i.fa-pencil{
     opacity: 1;
 }
 

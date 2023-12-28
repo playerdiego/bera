@@ -6,12 +6,12 @@ import {GoogleAuthProvider} from '@firebase/auth';
 import { getStorage } from "@firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBVL9faHk3SJWA6Pw5fjyU5nBuYkxtQyv8",
-  authDomain: "bera-ref.firebaseapp.com",
-  projectId: "bera-ref",
-  storageBucket: "bera-ref.appspot.com",
-  messagingSenderId: "883193208320",
-  appId: "1:883193208320:web:d17e8f5da514ba58bac2e5"
+  apiKey: "AIzaSyBPjCjkvC7zby5fYPqydyp5p0LMUBW_k2w",
+  authDomain: "bera-fadiku-ref.firebaseapp.com",
+  projectId: "bera-fadiku-ref",
+  storageBucket: "bera-fadiku-ref.appspot.com",
+  messagingSenderId: "815483659505",
+  appId: "1:815483659505:web:71145bdc086395176b7550"
 };
 
 // Initialize Firebase

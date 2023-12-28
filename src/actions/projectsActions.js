@@ -1,12 +1,12 @@
 import { getAuth } from "@firebase/auth";
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc } from "@firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, Timestamp } from "@firebase/firestore";
 import Swal from "sweetalert2";
 import { db } from "../firesbase/firebase-config";
 import { swalLoading } from "../helpers/swalLoading";
 import { types } from "../types/types";
 import { startLoading, stopLoading } from "./uiActions";
 
-export const startLoadProjects = (uid) => {
+export const startLoadProjects = () => {
     return async (dispatch) => {
         
         dispatch(startLoading());
@@ -59,7 +59,6 @@ export const startUpdateProject = (projectID, project) => {
 export const startAddRemuneration = (clientId, cliente, compra) => {
     return (dispatch) => {
         const updatedClient = {...cliente, remuneracion: cliente.remuneracion+20, historial: [...cliente.historial, compra]};
-        const auth = getAuth();
         swalLoading('Se esta actualizando la información del cliente', 'Por favor, espere');
         updateDoc(doc(db, 'clients', clientId), updatedClient)
             .then(() => {
@@ -72,8 +71,7 @@ export const startAddRemuneration = (clientId, cliente, compra) => {
 
 export const startPayRemuneration = (clientId, cliente) => {
     return (dispatch) => {
-        const updatedClient = {...cliente, remuneracion: 0};
-        const auth = getAuth();
+        const updatedClient = {...cliente, remuneracion: 0, pagos: [...cliente.pagos, {fecha: new Date(), pagado: cliente.remuneracion}]};
         swalLoading('Se esta actualizando la información del cliente', 'Por favor, espere');
         updateDoc(doc(db, 'clients', clientId), updatedClient)
             .then(() => {

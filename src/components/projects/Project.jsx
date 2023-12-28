@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { getProjectById } from '../../helpers/getProjectById'
 import { useDispatch } from 'react-redux';
 import { closeSidebar } from '../../actions/uiActions';
-import { Delete } from '../ui/Delete';
 import { swalConfirm } from '../../helpers/swalConfirm';
 import { useSelector } from 'react-redux';
 import { scrolltoTop } from '../../helpers/scrollToTop';
@@ -10,7 +9,6 @@ import { Loading } from '../ui/Loading';
 import { startAddRemuneration, startDeleteProject } from '../../actions/projectsActions';
 import { Navigate, useNavigate, useParams } from 'react-router';
 import { getAuth } from '@firebase/auth';
-import { ClientHeader } from '../files/ClientHeader';
 import { AdminResume } from '../dashboard/AdminResume';
 import Swal from 'sweetalert2';
 

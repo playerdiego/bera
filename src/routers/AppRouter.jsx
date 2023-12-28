@@ -14,8 +14,9 @@ import { Route, Routes } from 'react-router'
 import axios from "axios";
 import { startLoadClients } from '../actions/clientsActions'
 import { startLoadProjects } from '../actions/projectsActions'
+import { SearchScreen } from '../components/auth/SearchScreen'
 
-const _baseUrlRealTime = 'https://bera-ref-default-rtdb.firebaseio.com/';
+const _baseUrlRealTime = 'https://bera-fadiku-ref-default-rtdb.firebaseio.com/';
 
 
 export const AppRouter = () => {
@@ -62,7 +63,7 @@ export const AppRouter = () => {
 
 
                 <Route path='/auth/action' element={<ActionEmailScreen />} />
-
+                <Route path='/buscar' element={<SearchScreen/>} />
                 <Route path='/auth/*' element={
                     <PublicRouter>
                         <AuthRouter />

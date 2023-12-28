@@ -30,36 +30,8 @@ export const Sidebar = () => {
 
                         <Link to="/" className="sidebar__nav-link">
                             <i className='fas fa-columns'></i>
-                            <span className={!open ? 'hide' : ''}>Dashboard</span>
+                            <span className={!open ? 'hide' : ''}>Clientes</span>
                         </Link>
-
-                        <Link to="/files" className="sidebar__nav-link">
-                            <i className='fas fa-briefcase'></i>
-                            <span className={!open ? 'hide' : ''}>Archivos</span>
-                        </Link>
-
-                        {
-                            role === 'admin' &&
-                            (
-                                <>
-                                    <Link to="/representantes" className="sidebar__nav-link">
-                                        <i className='fas fa-users'></i>
-                                        <span className={!open ? 'hide' : ''}>Representantes</span>
-                                    </Link>
-                                </>
-                            )
-                        }
-
-                        {
-                            role !== 'admin' &&
-                            <Link to="/formularios" className="sidebar__nav-link">
-                                <i className='fas fa-pencil-alt'></i>
-                                <span className={!open ? 'hide' : ''}>Formularios</span>
-                            </Link>
-
-                        }
-
-                        
 
                     </div>
                 </div>

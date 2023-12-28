@@ -1,27 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useForm } from '../../hooks/useForm'
-import { ErrorForm } from '../ui/ErrorForm'
-import Logo from '../../assets/logo.png';
-import { Credits } from './Credits'
-import { startLoadProjects } from '../../actions/projectsActions'
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "../../hooks/useForm";
+import { useState } from "react";
+import { ErrorForm } from "../ui/ErrorForm";
 import Swal from 'sweetalert2';
 import { createRoot } from 'react-dom/client';
 import QRCode from "react-qr-code";
 
 
-export const SearchScreen = () => {
+export const Search = () => {
 
-    const dispatch = useDispatch();
-    const projects = useSelector(state => state.projects);
-
-    const [error, setError] = useState();
-
+    
     const [{cedula}, handleInputChange, reset] = useForm({
         cedula: ''
     });
 
-    const onSearchData = () => {
+    const projects = useSelector(state => state.projects);
+    
+    const [error, setError] = useState(false);
+
+
+    const onSearch = (e) => {
+        e.preventDefault();
 
         if(checkForm()) {
             
@@ -99,62 +98,10 @@ export const SearchScreen = () => {
                     </div>
                 );
             }
+
+            reset();
         }
     }
-
-    const onOpenPayments = () => {
-
-        const cliente = projects.find(client => client.cedula === cedula);
-        setError(false);
-
-        if(!cliente) {
-            Swal.fire("No se ha encontrado el cliente con esa cédula");
-        } else {
-            let output = cliente.historial.map((compra, i) => (
-                `
-                  <tr>
-                    <th scope="row">${i+1}</th>
-                    <td>${compra.nombre}</td>
-                    <td>${compra.cedula}</td>
-                    <td>${compra.moto}</td>
-                    <td>${compra.monto}</td>
-                    <td>${compra.remuneracion}</td>
-                    <td>${compra.fecha.toDate ? compra.fecha.toDate().toLocaleString('es-VE') : compra.fecha.toLocaleString("es-VE")}</td>
-                  </tr>
-                `
-            )) ;
-    
-            Swal.fire({
-                title: "<h3>Datos del cliente</h3>", 
-                html: `
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Cédula</th>
-                            <th scope="col">Modelo de Moto</th>
-                            <th scope="col">Monto en $USD</th>
-                            <th scope="col">Remuneración</th>
-                            <th scope="col">Fecha</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            ${output.join('')}
-                        </tbody>
-                    </table>`,
-                customClass: 'swal-wide',
-                confirmButtonText: "Cerrar",
-                confirmButtonColor: '#35b6b3'
-            });
-        }
-
-    }
-
-    useEffect(() => {
-        dispatch(startLoadProjects());
-    }, []);
-    
 
     const checkForm = () => {
 
@@ -167,28 +114,25 @@ export const SearchScreen = () => {
 
     }
 
-    return (
-        <div className='auth__container search_container'>
-        <div className='auth__box'>
-            {
-                error && 
-                <ErrorForm msg={error} />
-            }
-            <img className='auth__logo' src={Logo} alt='Bera' />
-            <h1 className='auth__box-title'>Buscar cliente</h1>
-                <input
-                    type="text"
-                    className="auth__input"
-                    name="cedula"
-                    placeholder='Número de cédula'
-                    onChange={handleInputChange}
-                    value={cedula}
-                />
+  return (
+    <>
+        <h3>Buscar por número de cédula</h3>
+        {
+            error &&
+            <ErrorForm msg={error} />
+        }
+        <form onSubmit={onSearch}>
+            <input
+                type="number"
+                className="auth__input"
+                name="cedula"
+                placeholder='Ingresa la cédula del cliente'
+                onChange={handleInputChange}
+                value={cedula}
+            />
 
-                <button className='auth__login-button btn' onClick={() => onSearchData()}><i className="far fa-user"></i> Ver datos y QR</button>
-                <button className='auth__login-button btn' onClick={() => onOpenPayments()}><i className="far fa-list"></i> Ver referidos</button>
-        </div>
-        <Credits />
-        </div>
-    )
+            <button className='auth__login-button btn'><i className="far fa-search"></i> Buscar</button>
+        </form>
+    </>
+  )
 }
